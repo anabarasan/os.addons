@@ -1,6 +1,4 @@
-Note:
-	print is not applicable for aggregate reports.   
-	export to pdf will not work for forms with images.
+Print & Export to PDF
 
 For print functionality
 
@@ -58,3 +56,6 @@ In app.yaml immediately under handlers: add the below two lines
   
 ===============================================================================
 
+Note:
+	print is not applicable for aggregate reports.   
+	export to pdf will not work for forms with images.
