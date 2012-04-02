@@ -59,3 +59,4 @@ In app.yaml immediately under handlers: add the below two lines
 Note:
 	print is not applicable for aggregate reports.   
 	export to pdf will not work for forms with images.
+	you can get the theme.html & import.html & app.yaml from the gae runtime files
