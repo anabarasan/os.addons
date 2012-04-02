@@ -1,0 +1,61 @@
+Print & Export to PDF
+
+For print functionality
+
+in theme.html, add the below line inside the script tag 
+var isTheme = '$httprequest.getParameters().get("theme")'
+
+in import.html, add at the end of file
+<script src='/static/html/a.custom.js'></script>
+
+===============================================================================
+
+In list report, in the first cell
+{if isTheme != 'off'}
+	<input class='button' style="width:60px;" type='button' value='Print' onClick="printer('report')"/>
+{/if}
+
+===============================================================================
+
+In form / Queue, in the first cell
+{if isTheme != 'off'}
+	<input class='button' style="width:60px;" type='button' value='Print' onClick="printer('form)"/>
+{/if}
+
+===============================================================================
+
+in queue / list report / form, in last cell
+{if isTheme == 'off'}
+	{eval}wait_for_jst();{/eval}
+{/if}
+
+===============================================================================
+
+For export to pdf
+in app.yaml, add the below 2 lines immediately after handlers:
+- url: /export2pdf
+  script: orangescape/addons/export2pdf/export2pdf.py
+  
+in import.html, add at the end of file
+<script src='/static/html/a.custom.js'></script>
+<form id = "pdfForm" action='/export2pdf' method="post">
+    <input type="hidden" id="src" name="src" value=""></input>
+    <input type="hidden" name="pdf_name" value="Report.pdf" />
+</form>
+
+===============================================================================
+
+Add the below code, in the form / queue / wherever you want to give export as pdf option
+<input type="image" id="pdfdownload" src="/static/images/downloadpdf.png" value="PDF" onClick="export2PDF()"/>
+
+===============================================================================
+
+In app.yaml immediately under handlers: add the below two lines 
+- url: /export2pdf
+  script: orangescape/addons/export2pdf.py
+  
+===============================================================================
+
+Note:
+	print cannot be used for aggregate reports.   
+	export to pdf will not work for pages with images.
