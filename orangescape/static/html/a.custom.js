@@ -28,8 +28,7 @@ function wait_for_jst(){
 
 function export2PDF(){
     /*
-        Convert HTML to PDF using the GAE's experimental Conversion API
-        This reads the external css and makes it as inline, 
+        This reads the external css & images and makes it as inline, 
         and sends the HTML for conversion to PDF.
     */
     var applicationCss = ''
@@ -56,4 +55,65 @@ function export2PDF(){
 
     document.forms["pdfForm"].src.value = headStr + htmlContent;
     document.forms["pdfForm"].submit();
+}
+
+function imageType(img){
+    /*
+     * Find the mime-type of image using extension.
+     * This is ugly.  
+     * Need to find a way to read file header.
+    */
+    var ext = img.src.split('.');
+    ext = ext[ext.length - 1]
+    switch (ext.toLowerCase()){
+        case 'png':
+            return 'image/png';
+        case 'gif':
+            return 'image/gif';
+        case 'bmp':
+            return 'image/bmp';
+        case 'jpg':
+            return 'image/jpeg';
+        case 'jpeg':
+            return 'image/jpeg';
+    }
+}
+
+function encodeImage(img){
+	/* Get Image Data 
+	 * http://usejquery.com/posts/encode-images-for-offline-usage-with-html5-canvas 
+	*/
+    canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context = canvas.getContext('2d');
+    context.drawImage(img, 0, 0);
+    return canvas.toDataURL(imageType(img));    
+}
+
+function convertInput2Image(src){
+	var ip2img = document.createElement('img');
+	ip2img.src = src;
+	return ip2img;
+}
+
+function getImages(){
+	var images = document.images;
+	for (var i=0; i< images.length; i++){
+		mimetype = imageType(images[i]);
+		imagedata = encodeImage(images[i]);
+		imgsrc = images[i].src;
+	}
+	//data to be added to query params
+}
+
+function getInputImages(){
+	/* http://stackoverflow.com/questions/5351617/swap-all-images-on-page-via-one-link-jquery */
+	$('input').attr('src',function(i, src){
+		var img = convertInput2Image()
+		mimetype = imageType(img);
+		imagedata = encodeImage(img);
+		imgsrc = src;
+		});
+	// data to be added to query params
 }
