@@ -31,32 +31,6 @@ in queue / list report / form, in last cell
 
 ===============================================================================
 
-For export to pdf
-in app.yaml, add the below 2 lines immediately after handlers:
-- url: /export2pdf
-  script: orangescape/addons/export2pdf/export2pdf.py
-  
-in import.html, add at the end of file
-<script src='/static/html/a.custom.js'></script>
-<form id = "pdfForm" action='/export2pdf' method="post">
-    <input type="hidden" id="src" name="src" value=""></input>
-    <input type="hidden" name="pdf_name" value="Report.pdf" />
-</form>
-
-===============================================================================
-
-Add the below code, where you want to give export as pdf option
-<input type="image" id="pdfdownload" src="/static/images/downloadpdf.png" value="PDF" onClick="export2PDF()"/>
-
-===============================================================================
-
-In app.yaml immediately under handlers: add the below two lines 
-- url: /export2pdf
-  script: orangescape/addons/export2pdf.py
-  
-===============================================================================
-
 Note:
 	print is not applicable for aggregate reports.   
-	export to pdf will not work for forms with images.
 	you can get the theme.html & import.html & app.yaml from the gae runtime files
