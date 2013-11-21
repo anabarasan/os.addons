@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html style="height:100%">
+<head>
+	<title>$metadata.getApplication().getSheetName()</title>
+	<link href="${application_static_path}/static/css/style.css"  rel="stylesheet" type="text/css"/>
+    <link href="${application_static_path}/static/css/theme.css"  rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="${common_static_path}/common/css/jqueryslidemenu.css" />
+    <script type="text/javascript" src="${common_static_path}/common/scripts/jquery.js"></script>
+    <script type="text/javascript" src="${common_static_path}/common/scripts/placeholder.js"></script>
+</head>
+
+<body height="100%" style="margin:0px; border:0px;height:100%;background: #f5f6f6;">
+    <script>
+    #raw
+    $(document).ready(function(){
+        $('input, textarea').placeholder();
+    });
+    #end raw
+    </script>
+    <table width="100%" height="15%" border=0 cellpadding=0 cellspacing=0 align="center">
+		<tr height="5px" >
+	       <td valign="top">
+	            <!-- Title, Logo, Welcome text -->
+	            <table cellpadding='0' cellspacing='0' width="100%">
+	            <tr >
+	                <td valign="top">
+	                	<table>
+	                		<tr height="10px">
+	                			<td>
+	                			</td>
+	                		</tr>
+	                		<tr>
+	                			 <td class="siteheader" style="padding-left:5px;">
+	                			 	$metadata.getApplication().getSheetName()
+	                			 </td>
+	                		</tr>
+	               		</table>
+	                </td>
+	            </tr>
+	            </table>
+	        </td>
+	    </tr>
+        <tr valign="top">
+            <td style="padding-top:0px;text-align:center;width:400px">
+                <img src="${application_static_path}/static/images/loginHeader.png"/>
+            </td>
+        </tr>
+	</table>
+    <table height="82%" cellpadding=0 cellspacing=0 align="center" width="100%">
+		<tr height="100%">
+			<td style="background: #f5f6f6 url(/static/images/loginBg1.png) no-repeat left;width:40%;" rowspan="2">
+
+			</td>
+			<td style="background: #f5f6f6;width:30%;" rowspan="2">
+				<table>
+					<tr height="90%">
+						<td align="center">
+							<table>
+								<tr valign="top"><td align="center">
+										<form method="post" action="/$metadata.getApplication().getSheetId()/1/signin" style="margin:0px; padding:0px">
+										<table height="280" width="300">
+											<!-- tr><td class="loginheader" style="font-size:24px" align="center">login</td></tr -->
+                                            <tr>
+                                                <td style ="margin: 0px;padding: 2px;height:20px;font-family : Verdana;font-size: 14px;width: 100%;height:34px;padding-left:10px;text-align:center;color:red;">
+                                                    <script>
+                                                        var loginErrMsg = "";
+                                                        #try
+                                                            loginErrMsg = "$httprequest.getNative().__getattr__("errorMessage")";
+                                                        #except
+                                                            #pass
+                                                        #end try
+                                                        if (loginErrMsg.trim().length > 0)
+                                                            document.write("Invalid Email Id or Password");
+                                                    </script>
+                                                </td>
+                                            </tr>
+											<tr valign="top" >
+												<td>
+			                                        <table cellpadding=0 cellspacing=0 width="100%">
+			                                        <tr><td>
+			                                            <input name='userid' type='text' value='' id='userid' style ="margin: 0px;padding: 2px;height:20px;border :1px solid white;font-family : Verdana;font-size: 14px;width: 100%;height:34px;padding-left:10px;" placeholder="Email Id">
+			                                        </td></tr>
+			                                        <tr><td height="5px" style="background-image: url('/static/images/textbox_border.png'); background-repeat: no-repeat;" valign="top">
+			                                        </td></tr>
+			                                        </table>
+			                                    </td>
+											</tr>
+											<tr valign="top" >
+												<td>
+			                                    <table cellpadding=0 cellspacing=0 width="100%">
+			                                    <tr><td>
+			                                        <input placeholder="Password" name='password' type='password' value='' id='password' style ="margin: 0px;padding: 2px;height:20px;border :1px solid white;font-family : Verdana;font-size: 14px;width: 100%;height:34px;padding-left:10px;">
+			                                    </td></tr>
+			                                    <tr><td height="5px" style="background-image: url('/static/images/textbox_border.png'); background-repeat: no-repeat;">
+			                                    </td></tr>
+			                                    </table>
+											</tr>
+											<tr valign="top">
+												<td width="300" align="center">
+													<input type="image" src="${application_static_path}/static/images/signup.png" border="0">
+												</td>
+											</tr>
+										</table>
+										<input name='forward' type='hidden' value='$forwardUrl' id='forward'>
+										</form>
+									</td>
+									<td width="30px">&nbsp;</td>
+								</tr>
+
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td style="width:30%;background: #f5f6f6 url(/static/images/loginBg2.png) no-repeat left top;" rowspan="2">
+
+			</td>
+		</tr>
+	</table>
+	<table cellpadding=0 cellspacing=0 width="100%" height="3%">
+		<tr style="width:48%;background: #f5f6f6">
+			<td height='1px' width="100%">
+				#include source = $getFileContents($templatePath+"/footer.html")
+			</td>
+		</tr>
+	</table>
+
+</BODY>
+</HTML>
