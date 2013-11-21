@@ -1,3 +1,4 @@
 plugins included
 * [Print](https://github.com/anabarasan/os.addons/wiki/Print)
-* [CustomAuthenticator](https://github.com/anabarasan/os.addons/wiki/CustomAuthenticator)
+* [SelfAuthenticator](https://github.com/anabarasan/os.addons/wiki/CustomAuthenticator)
+* [ProtegoTotalumAuthenticator](https://github.com/anabarasan/os.addons/wiki/ProtegoTotalumAuthenticator)
