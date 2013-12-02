@@ -1,0 +1,19 @@
+application: speedy-code-376
+version: configure
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: .*
+  script: configure.app
+
+libraries:
+- name: jinja2
+  version: "latest"
+- name: webapp2
+  version: "latest"
