@@ -2,10 +2,10 @@
 # Anbarasan <nasarabna@gmail.com>
 # Custom Command to Copy Attachment from one record to another
 # Params:
-#    Source        : The SheetId of the record from which to copy the attachment
-#    Target        : The SheetId of the record to which the attachment is to be copied
+#    Source      : The SheetId of the record from which to copy the attachment
+#    Target      : The SheetId of the record to which the attachment is to be copied
 #    fileName    : The file name of the attachment as available in source record
- 
+
 import logging
 from orangescape.model.server.Custom import CustomCommand
 from orangescape.model.server.gae.GFSModels import Attachment, BlobPart
