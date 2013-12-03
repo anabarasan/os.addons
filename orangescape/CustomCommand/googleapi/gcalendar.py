@@ -1,3 +1,13 @@
+# gcalendar.py 
+# Anbarasan <nasarabna@gmail.com>
+# Custom Command to create a google calendar event and send invites
+# params : 
+#    summary     : Title of the Event 
+#    description : A small description of the Event
+#    start       : start date of the event (YYYY-MM-DD)
+#    end         : end date of the event should be startdate + 1 (YYYY-MM-DD)
+#    attendees   : attendee email address, comma delimited
+
 import json, logging, urllib, urllib2
 from auth import Authorize
 from config import APIKEY, CALENDARID
