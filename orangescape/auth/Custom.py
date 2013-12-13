@@ -3,36 +3,32 @@ import logging
 from appconfig import env, GAE, GAESQL, ENTERPRISE
 from orangescape.model.server.UserAuthentication import UserAuthentication
 
-def authenticate(self, controller):
-    authenticated = False
-    resultDict = {"authenticated":authenticated}
+if env in (GAE , GAESQL):
+    from GAEAuth import GAEAbstractAuth as BaseAuthenticator
+elif env == ENTERPRISE:
+    from EnterpriseAuth import EnterpriseAbstractAuth as BaseAuthenticator
+else:
+    from Dummy import DummyAuthenticator as BaseAuthenticator
     
-    userEmail = controller.request.get("userid")
-    password = controller.request.get("password")    
-    authentication=UserAuthentication(controller.session,userEmail)
-    userinfo = authentication.getUser(userEmail)
-    
-    if userinfo and (userinfo.getValue("UserId") == userEmail) and (userinfo.getValue("PassPhrase") == password):
-        authenticated = True
-    
-    if authenticated:
-        resultDict["authenticated"] = authenticated
-        resultDict["userEmail"] = userEmail
-        
-    return resultDict
-        
-def ClassFactory(className, BaseClass):
-    #http://stackoverflow.com/questions/15247075/how-can-i-dynamically-create-derived-classes-from-a-base-class
-    def __init__(self):
-        BaseClass.__init__(self)
-    newclass = type(className, (BaseClass,),{"__init__": __init__, "authenticate" : authenticate})
-    return newclass
-    
-class SelfAuthenticator:
+class SelfAuthenticator(BaseAuthenticator):
     def authenticate(self, controller):
-        if env in (GAE , GAESQL):
-            from GAEAuth import GAEAbstractAuth as BaseAuthenticator
-        elif env == ENTERPRISE:
-            from EnterpriseAuth import EnterpriseAbstractAuth as BaseAuthenticator
+        authenticated = False
+        resultDict = {"authenticated":authenticated}
         
-        return ClassFactory('Authenticator', BaseAuthenticator)().authenticate(controller)
+        userEmail = controller.request.get("userid")
+        password = controller.request.get("password")    
+        authentication=UserAuthentication(controller.session,userEmail)
+        userinfo = authentication.getUser(userEmail)
+        
+        if userinfo and (userinfo.getValue("UserId") == userEmail) and (userinfo.getValue("PassPhrase") == password):
+            logging.info("Login successful for user %s" % (userinfo.getValue("UserId")))
+            authenticated = True
+        
+        if authenticated:
+            resultDict["authenticated"] = authenticated
+            resultDict["userEmail"] = userEmail
+        else:
+            logging.error("UnSuccessful login attempt for user %s" % (userEmail))
+            controller.request.__setattr__("errorMessage", "invalid userid or password")
+            
+        return resultDict
